@@ -1,6 +1,7 @@
 package com.example.android.geoquiz;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -29,6 +30,7 @@ public class QuizActivity extends Activity {
     private  static final String KEY_INDEX="index";
     private Button mTrueButton;
     private Button mFalseButton;
+    private Button helpButton;
 
     private int currentIndex=0;
     private TextView questView;
@@ -100,12 +102,23 @@ public class QuizActivity extends Activity {
 
             }
         });
+
         mFalseButton = (Button) findViewById(R.id.false_button);
         mFalseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 checkAnswer(false);
 
+            }
+        });
+
+        helpButton = (Button) findViewById(R.id.help_button);
+        helpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Запуск активности HelpActivity
+                Intent i = new Intent(QuizActivity.this,HelpActivity.class);
+                startActivity(i);
             }
         });
 
