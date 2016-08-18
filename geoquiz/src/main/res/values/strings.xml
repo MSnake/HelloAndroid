@@ -5,6 +5,10 @@
     <string name="question_alearn">Ты уже что-то знаешь об Android?</string>
     <string name="question_mvc">Android приложения используют паттерн синглтон?</string>
     <string name="question_newbee">Ты готов стать Android джуном?</string>
+    <string name="help_button">Help me pls!</string>
+    <string name="show_answer_button">Стоит!</string>
+    <string name="warning_text">Может оно того не стоит, бро?</string>
+    <string name="joke_toast">Ахаха, слабак!</string>
     <string name="true_button">Агась</string>
     <string name="false_button">Нет, бро</string>
     <string name="next_button">Go-next</string>
