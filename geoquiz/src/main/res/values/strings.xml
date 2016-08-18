@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">GeoQuiz</string>
     <string name="question_start">Знаком ли ты с языком Java?</string>
+    <string name="question_pro">Ты крутой разраб?</string>
     <string name="question_android">Считаешь ли ты Android пересспективным?</string>
     <string name="question_alearn">Ты уже что-то знаешь об Android?</string>
     <string name="question_mvc">Android приложения используют паттерн синглтон?</string>

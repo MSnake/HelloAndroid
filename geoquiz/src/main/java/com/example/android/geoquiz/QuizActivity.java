@@ -39,9 +39,10 @@ public class QuizActivity extends Activity {
     private TrueFalse[] questionData = new TrueFalse[]
             {
                     new TrueFalse(R.string.question_start, true),
+                    new TrueFalse(R.string.question_pro, false),
                     new TrueFalse(R.string.question_android, true),
                     new TrueFalse(R.string.question_alearn, true),
-                    new TrueFalse(R.string.question_mvc, true),
+                    new TrueFalse(R.string.question_mvc, false),
                     new TrueFalse(R.string.question_newbee, true)
             };
     /**
@@ -118,6 +119,8 @@ public class QuizActivity extends Activity {
             public void onClick(View view) {
                 //Запуск активности HelpActivity
                 Intent i = new Intent(QuizActivity.this,HelpActivity.class);
+                boolean trueAnsw = questionData[currentIndex].isTrueQuestion();
+                i.putExtra(HelpActivity.EXTRA_TRUE_ANSWER,trueAnsw);
                 startActivity(i);
             }
         });
