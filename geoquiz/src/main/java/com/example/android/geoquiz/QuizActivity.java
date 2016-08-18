@@ -31,6 +31,19 @@ public class QuizActivity extends Activity {
     private Button mTrueButton;
     private Button mFalseButton;
     private Button helpButton;
+    private boolean helpUsed;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (data ==null)
+        {
+            return;
+        }
+        else
+        {
+            helpUsed = data.getBooleanExtra(HelpActivity.EXTRA_SHOWN_ANSWER,false);
+        }
+    }
 
     private int currentIndex=0;
     private TextView questView;
@@ -60,14 +73,20 @@ public class QuizActivity extends Activity {
     private void checkAnswer(boolean userAnswer){
         boolean realAnswer = questionData[currentIndex].isTrueQuestion();
         int message;
-        if (realAnswer == userAnswer)
-        {
-            message = R.string.correct_toast;
-            updateQuestion();
+        if (userAnswer){
+            message = R.string.joke_toast;
         }
         else
         {
-            message = R.string.incorrect_toast;
+            if (realAnswer == userAnswer)
+            {
+                message = R.string.correct_toast;
+                updateQuestion();
+            }
+            else
+            {
+                message = R.string.incorrect_toast;
+            }
         }
 
         Toast.makeText(this,message, Toast.LENGTH_SHORT).show();
@@ -81,6 +100,7 @@ public class QuizActivity extends Activity {
         Log.d(TAG,"OnCreate(Bundle) called");
         setContentView(R.layout.content_quiz);
 
+        helpUsed = false;
         questView = (TextView) findViewById(R.id.question_text_view);
         if (savedInstanceState !=null)
         {
@@ -121,7 +141,7 @@ public class QuizActivity extends Activity {
                 Intent i = new Intent(QuizActivity.this,HelpActivity.class);
                 boolean trueAnsw = questionData[currentIndex].isTrueQuestion();
                 i.putExtra(HelpActivity.EXTRA_TRUE_ANSWER,trueAnsw);
-                startActivity(i);
+                startActivityForResult(i,0);
             }
         });
 
