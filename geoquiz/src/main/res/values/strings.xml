@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">GeoQuiz</string>
+    <string name="question_start">Знаком ли ты с языком Java?</string>
+    <string name="question_android">Считаешь ли ты Android пересспективным?</string>
+    <string name="question_alearn">Ты уже что-то знаешь об Android?</string>
+    <string name="question_mvc">Android приложения используют паттерн синглтон?</string>
+    <string name="question_newbee">Ты готов стать Android джуном?</string>
+    <string name="true_button">Агась</string>
+    <string name="false_button">Нет, бро</string>
+    <string name="next_button">Go-next</string>
+    <string name="prev_button">Go-prev</string>
+    <string name="correct_toast">Красавчик</string>
+    <string name="incorrect_toast">Ну, такое</string>
+    <string name="action_settings">Settings</string>
+</resources>
