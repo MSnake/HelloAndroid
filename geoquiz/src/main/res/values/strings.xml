@@ -9,7 +9,7 @@
     <string name="help_button">Help me pls!</string>
     <string name="show_answer_button">Стоит!</string>
     <string name="warning_text">Может оно того не стоит, бро?</string>
-    <string name="joke_toast">Ахаха, слабак!</string>
+    <string name="joke_toast">Подсматривать ответы не ОК, бро!</string>
     <string name="true_button">Агась</string>
     <string name="false_button">Нет, бро</string>
     <string name="next_button">Go-next</string>

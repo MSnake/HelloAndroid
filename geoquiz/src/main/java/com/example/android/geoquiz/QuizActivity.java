@@ -3,6 +3,7 @@ package com.example.android.geoquiz;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -28,10 +29,11 @@ public class QuizActivity extends Activity {
 
     private static final String TAG="QuizActivity";
     private  static final String KEY_INDEX="index";
+    private  static final String CHEAT_MARKER="cheat";
     private Button mTrueButton;
     private Button mFalseButton;
     private Button helpButton;
-    private boolean helpUsed;
+    private boolean helpUsed = false;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -42,6 +44,7 @@ public class QuizActivity extends Activity {
         else
         {
             helpUsed = data.getBooleanExtra(HelpActivity.EXTRA_SHOWN_ANSWER,false);
+            updateCheating(currentIndex);
         }
     }
 
@@ -67,13 +70,26 @@ public class QuizActivity extends Activity {
 
     private void updateQuestion(){
         int question = questionData[currentIndex].getQuestion();
+        helpUsed = false;
         questView.setText(question);
+    }
+
+    private void updateCheating(int quest){
+        if (helpUsed)
+        {
+            questionData[quest].setUsedHelp(true);
+        }
+        else
+        {
+            questionData[quest].setUsedHelp(false);
+        }
+
     }
 
     private void checkAnswer(boolean userAnswer){
         boolean realAnswer = questionData[currentIndex].isTrueQuestion();
         int message;
-        if (userAnswer){
+        if (questionData[currentIndex].isUsedHelp()){
             message = R.string.joke_toast;
         }
         else
@@ -100,11 +116,13 @@ public class QuizActivity extends Activity {
         Log.d(TAG,"OnCreate(Bundle) called");
         setContentView(R.layout.content_quiz);
 
-        helpUsed = false;
         questView = (TextView) findViewById(R.id.question_text_view);
         if (savedInstanceState !=null)
         {
             currentIndex = savedInstanceState.getInt(KEY_INDEX,0);
+            helpUsed = savedInstanceState.getBoolean(CHEAT_MARKER,false);
+            updateCheating(currentIndex);
+
         }
         updateQuestion();
         questView.setOnClickListener(new View.OnClickListener() {
@@ -171,6 +189,10 @@ public class QuizActivity extends Activity {
             }
         });
 
+        TextView version = (TextView) findViewById(R.id.sdk_version_textView);
+        String str = "API Level "+ Build.VERSION.SDK_INT;
+        version.setText(str);
+
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
@@ -221,6 +243,7 @@ public class QuizActivity extends Activity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         Log.d(TAG,"OnSaveInstanceState(Bundle) called");
+        outState.putBoolean(CHEAT_MARKER,helpUsed);
         outState.putInt(KEY_INDEX,currentIndex);
     }
 

@@ -7,11 +7,21 @@ public class TrueFalse {
 
     private int mQuestion;
 
+    private boolean usedHelp = false;
+
     private boolean mTrueQuestion;
 
     public TrueFalse(int question, boolean trueQuestion){
         mQuestion = question;
         mTrueQuestion = trueQuestion;
+    }
+
+    public boolean isUsedHelp() {
+        return usedHelp;
+    }
+
+    public void setUsedHelp(boolean usedHelp) {
+        this.usedHelp = usedHelp;
     }
 
     public int getQuestion() {

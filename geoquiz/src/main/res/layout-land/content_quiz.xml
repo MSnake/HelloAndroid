@@ -33,6 +33,20 @@
             android:layout_height="wrap_content"
             android:text="@string/false_button"/>
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="30dp"
+        android:layout_gravity="bottom|center">
+        <TextView
+            android:id="@+id/sdk_version_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:text=""
+            />
+    </LinearLayout>
 
     <Button
         android:id="@+id/help_button"

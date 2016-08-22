@@ -2,6 +2,7 @@ package com.example.android.geoquiz;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,9 +15,11 @@ import org.w3c.dom.Text;
  */
 public class HelpActivity extends Activity
 {
+    private static final String RESULT = "Result";
     private boolean trueAnswer;
     private TextView answerTextView;
     private Button showAnswerButton;
+    private boolean cheating = false;
 
     public  static final String EXTRA_TRUE_ANSWER= "com.example.android.geoquiz.true_answer";
     public  static final String EXTRA_SHOWN_ANSWER= "com.example.android.geoquiz.shown_answer";
@@ -26,15 +29,32 @@ public class HelpActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.help_quiz);
 
-        setShownAnswerResult(false);
+        if (savedInstanceState != null){
+            cheating = savedInstanceState.getBoolean(RESULT);
+        }
+
+        setShownAnswerResult(cheating);
         trueAnswer = getIntent().getBooleanExtra(EXTRA_TRUE_ANSWER,false);
 
 
         answerTextView = (TextView) findViewById(R.id.answerTextView);
+        if (cheating)
+        {
+            if (trueAnswer)
+            {
+                answerTextView.setText(R.string.true_button);
+            }
+            else
+            {
+                answerTextView.setText(R.string.false_button);
+            }
+        }
+
         showAnswerButton = (Button) findViewById(R.id.showAnswerButton);
         showAnswerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                cheating = true;
                 if (trueAnswer)
                 {
                     answerTextView.setText(R.string.true_button);
@@ -43,9 +63,19 @@ public class HelpActivity extends Activity
                 {
                     answerTextView.setText(R.string.false_button);
                 }
-                setShownAnswerResult(true);
+                setShownAnswerResult(cheating);
             }
         });
+
+        TextView version = (TextView) findViewById(R.id.sdk_version_textView);
+        String str = "API Level "+ Build.VERSION.SDK_INT;
+        version.setText(str);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(RESULT,cheating);
     }
 
 
